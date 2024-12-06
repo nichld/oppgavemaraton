@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="/css/main.css">
+  <title>Dynamic Gallery</title>
+</head>
+<body>
+  <h1>Galleri Geir (Kjekkeste læreren)</h1>
+  <p>Bildene er hostet gjennom public mappen i dette prosjektet og bruker express til å serve disse filene.</p>
+  <a href="/logout">Logout</a>
+  <div class="gallery">
+    <% images.forEach(function(image) { %>
+      <img src="<%= image %>">
+    <% }); %>
+  </div>
+</body>
+</html>
