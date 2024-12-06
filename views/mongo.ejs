@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+</head>
+<body>
+  <h1>Mongo World</h1>
+  <ul>
+    <% messages.forEach(function(message) { %>
+      <% if (message.message) { %>
+        <li><%= message.message %></li>
+      <% } %>
+    <% }); %>
+  </ul>
+  <%- include('partials/foot') %>
+</body>
+</html>
