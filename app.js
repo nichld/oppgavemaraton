@@ -50,6 +50,10 @@ app.get('/mongo-world', mongoController.getMongoWorld);
 
 app.get('/galleri', isAuthenticated, galleryController.getGallery);
 
+app.get('/', (req, res) => {
+  res.redirect('/index');
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
