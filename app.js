@@ -6,6 +6,7 @@ const path = require('path');
 const session = require('express-session');
 const helloRoutes = require('./routes/helloRoutes');
 const redirectRoutes = require('./routes/redirectRoutes');
+const userRoutes = require('./routes/userRoutes');
 const indexController = require('./controllers/indexController');
 const mongoController = require('./controllers/mongoController');
 const userController = require('./controllers/userController');
@@ -26,19 +27,20 @@ app.use(session({
 }));
 
 app.get('/logout', (req, res) => {
-    req.session.destroy(err => {
-      if (err) {
-        console.error('Error destroying session:', err);
-        return res.status(500).send('Error logging out');
-      }
-      res.redirect('/index');
-    });
+  req.session.destroy(err => {
+    if (err) {
+      console.error('Error destroying session:', err);
+      return res.status(500).send('Error logging out');
+    }
+    res.redirect('/index');
   });
+});
 
-mongoose.connect('mongodb://10.12.7.252:27017/yourdbname', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://10.12.7.252:27017/dagsoppgave', { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use('/api', helloRoutes);
 app.use('/', redirectRoutes);
+app.use('/', userRoutes);
 
 app.get('/index', indexController.getIndex);
 app.post('/login', userController.login);

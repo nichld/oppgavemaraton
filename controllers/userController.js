@@ -1,3 +1,4 @@
+// controllers/userController.js
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
@@ -26,5 +27,32 @@ exports.register = async (req, res) => {
     res.redirect('/galleri');
   } catch (error) {
     res.status(500).send('Error registering user');
+  }
+};
+
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.find({}, 'username isAdmin');
+    res.render('users', { users });
+  } catch (error) {
+    res.status(500).send('Error retrieving users');
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.redirect('/users');
+  } catch (error) {
+    res.status(500).send('Error deleting user');
+  }
+};
+
+exports.upgradeUser = async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(req.params.id, { isAdmin: true });
+    res.redirect('/users');
+  } catch (error) {
+    res.status(500).send('Error upgrading user');
   }
 };
